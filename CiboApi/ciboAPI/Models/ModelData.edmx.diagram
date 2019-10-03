@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="69def65c8ed94cd59e235db0d3ee4d45" Name="Diagram1">
+        <EntityTypeShape EntityType="CiboMarketDBModel.CategoriasProductos" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.DireccionCliente" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.DireccionRestaurante" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.Empleado" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.pedidos" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.platillos" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.PlatilloSize" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.platillosPedidos" Width="1.5" PointX="10.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.repartidor" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.restaurante" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.RetirosRepartidor" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CiboMarketDBModel.usuario" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_CategoriasProductos_restaurante" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_platillos_CategoriasProductos" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_DireccionCliente_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_pedidos_DireccionCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_DireccionRestaurante_restaurante" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_pedidos_DireccionRestaurante" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_Empleado_restaurante" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_pedidos_repartidor" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_platillosPedidos_pedidos" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_PlatilloSize_platillos" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_platillosPedidos_platillos" ManuallyRouted="false" />
+        <AssociationConnector Association="CiboMarketDBModel.FK_RetirosRepartidor_repartidor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
