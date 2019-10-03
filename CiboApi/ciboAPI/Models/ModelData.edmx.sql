@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/03/2019 15:36:11
+-- Date Created: 10/03/2019 16:47:29
 -- Generated from EDMX file: C:\Users\CDS12\source\repos\CiboAll\CiboApi\ciboAPI\Models\ModelData.edmx
 -- --------------------------------------------------
 
@@ -41,6 +41,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_platillos_CategoriasProductos]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[platillos] DROP CONSTRAINT [FK_platillos_CategoriasProductos];
 GO
+IF OBJECT_ID(N'[dbo].[FK_platillos_Imagenes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[platillos] DROP CONSTRAINT [FK_platillos_Imagenes];
+GO
 IF OBJECT_ID(N'[dbo].[FK_PlatilloSize_platillos]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PlatilloSize] DROP CONSTRAINT [FK_PlatilloSize_platillos];
 GO
@@ -49,6 +52,12 @@ IF OBJECT_ID(N'[dbo].[FK_platillosPedidos_pedidos]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_platillosPedidos_platillos]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[platillosPedidos] DROP CONSTRAINT [FK_platillosPedidos_platillos];
+GO
+IF OBJECT_ID(N'[dbo].[FK_restaurante_Imagenes]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[restaurante] DROP CONSTRAINT [FK_restaurante_Imagenes];
+GO
+IF OBJECT_ID(N'[dbo].[FK_restaurante_Imagenes1]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[restaurante] DROP CONSTRAINT [FK_restaurante_Imagenes1];
 GO
 IF OBJECT_ID(N'[dbo].[FK_RetirosRepartidor_repartidor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RetirosRepartidor] DROP CONSTRAINT [FK_RetirosRepartidor_repartidor];
@@ -69,6 +78,9 @@ IF OBJECT_ID(N'[dbo].[DireccionRestaurante]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[Empleado]', 'U') IS NOT NULL
     DROP TABLE [dbo].[Empleado];
+GO
+IF OBJECT_ID(N'[dbo].[Imagenes]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Imagenes];
 GO
 IF OBJECT_ID(N'[dbo].[pedidos]', 'U') IS NOT NULL
     DROP TABLE [dbo].[pedidos];
@@ -138,6 +150,13 @@ CREATE TABLE [dbo].[Empleado] (
     [correo] varchar(70)  NOT NULL,
     [username] varchar(30)  NOT NULL,
     [id_Restaurante] int  NOT NULL
+);
+GO
+
+-- Creating table 'Imagenes'
+CREATE TABLE [dbo].[Imagenes] (
+    [id_imagen] int IDENTITY(1,1) NOT NULL,
+    [imagenName] varchar(100)  NOT NULL
 );
 GO
 
@@ -268,6 +287,12 @@ GO
 ALTER TABLE [dbo].[Empleado]
 ADD CONSTRAINT [PK_Empleado]
     PRIMARY KEY CLUSTERED ([id_empleado] ASC);
+GO
+
+-- Creating primary key on [id_imagen] in table 'Imagenes'
+ALTER TABLE [dbo].[Imagenes]
+ADD CONSTRAINT [PK_Imagenes]
+    PRIMARY KEY CLUSTERED ([id_imagen] ASC);
 GO
 
 -- Creating primary key on [idPedido] in table 'pedidos'
@@ -425,6 +450,51 @@ GO
 CREATE INDEX [IX_FK_Empleado_restaurante]
 ON [dbo].[Empleado]
     ([id_Restaurante]);
+GO
+
+-- Creating foreign key on [idImagen] in table 'platillos'
+ALTER TABLE [dbo].[platillos]
+ADD CONSTRAINT [FK_platillos_Imagenes]
+    FOREIGN KEY ([idImagen])
+    REFERENCES [dbo].[Imagenes]
+        ([id_imagen])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_platillos_Imagenes'
+CREATE INDEX [IX_FK_platillos_Imagenes]
+ON [dbo].[platillos]
+    ([idImagen]);
+GO
+
+-- Creating foreign key on [id_ImagenLogo] in table 'restaurante'
+ALTER TABLE [dbo].[restaurante]
+ADD CONSTRAINT [FK_restaurante_Imagenes]
+    FOREIGN KEY ([id_ImagenLogo])
+    REFERENCES [dbo].[Imagenes]
+        ([id_imagen])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_restaurante_Imagenes'
+CREATE INDEX [IX_FK_restaurante_Imagenes]
+ON [dbo].[restaurante]
+    ([id_ImagenLogo]);
+GO
+
+-- Creating foreign key on [id_imgLayer] in table 'restaurante'
+ALTER TABLE [dbo].[restaurante]
+ADD CONSTRAINT [FK_restaurante_Imagenes1]
+    FOREIGN KEY ([id_imgLayer])
+    REFERENCES [dbo].[Imagenes]
+        ([id_imagen])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_restaurante_Imagenes1'
+CREATE INDEX [IX_FK_restaurante_Imagenes1]
+ON [dbo].[restaurante]
+    ([id_imgLayer]);
 GO
 
 -- Creating foreign key on [idRepartidor] in table 'pedidos'

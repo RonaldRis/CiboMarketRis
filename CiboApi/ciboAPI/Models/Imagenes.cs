@@ -12,30 +12,24 @@ namespace ciboAPI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class platillos
+    public partial class Imagenes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public platillos()
+        public Imagenes()
         {
-            this.PlatilloSize = new HashSet<PlatilloSize>();
-            this.platillosPedidos = new HashSet<platillosPedidos>();
+            this.platillos = new HashSet<platillos>();
+            this.restaurante = new HashSet<restaurante>();
+            this.restaurante1 = new HashSet<restaurante>();
         }
     
-        public int id_Platillo { get; set; }
-        public int idImagen { get; set; }
-        public int id_CategoriasProductos { get; set; }
-        public string nombre { get; set; }
-        public string descp { get; set; }
-        public float precio { get; set; }
-        public int tiempoMinutosMax { get; set; }
-        public bool hasSize { get; set; }
-        public bool isActive { get; set; }
+        public int id_imagen { get; set; }
+        public string imagenName { get; set; }
     
-        public virtual CategoriasProductos CategoriasProductos { get; set; }
-        public virtual Imagenes Imagenes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlatilloSize> PlatilloSize { get; set; }
+        public virtual ICollection<platillos> platillos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<platillosPedidos> platillosPedidos { get; set; }
+        public virtual ICollection<restaurante> restaurante { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<restaurante> restaurante1 { get; set; }
     }
 }

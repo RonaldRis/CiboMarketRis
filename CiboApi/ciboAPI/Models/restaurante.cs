@@ -35,5 +35,7 @@ namespace ciboAPI.Models
         public virtual ICollection<DireccionRestaurante> DireccionRestaurante { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual Imagenes Imagenes { get; set; }
+        public virtual Imagenes Imagenes1 { get; set; }
     }
 }

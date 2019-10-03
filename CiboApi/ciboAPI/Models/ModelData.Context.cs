@@ -29,6 +29,7 @@ namespace ciboAPI.Models
         public virtual DbSet<DireccionCliente> DireccionCliente { get; set; }
         public virtual DbSet<DireccionRestaurante> DireccionRestaurante { get; set; }
         public virtual DbSet<Empleado> Empleado { get; set; }
+        public virtual DbSet<Imagenes> Imagenes { get; set; }
         public virtual DbSet<pedidos> pedidos { get; set; }
         public virtual DbSet<platillos> platillos { get; set; }
         public virtual DbSet<PlatilloSize> PlatilloSize { get; set; }

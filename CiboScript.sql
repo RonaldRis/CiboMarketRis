@@ -4,7 +4,20 @@
 -- Creating all tables
 -- --------------------------------------------------
 
+-- --------------------------------------------------
+-- Creating all tables
+-- --------------------------------------------------
 
+CREATE TABLE [usuario] (
+    [idUser] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    [username] varchar(20) UNIQUE NOT NULL,
+    [nombre] varchar(30)  NULL,
+    [apellido] varchar(30)  NULL,
+    [pass] varchar(30)  NULL,
+    [NumTelefono] varchar(20)  NULL,
+	correo varchar(70) NOT NULL
+);
+GO
 CREATE TABLE [DireccionCliente] (
     [idDireccionCliente] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
     [lon] int  NULL,
@@ -13,12 +26,34 @@ CREATE TABLE [DireccionCliente] (
     [descripcion] varchar(100)  NULL
 );
 GO
+-- Creating table 'restaurante'
+CREATE TABLE [restaurante] (
+    [id_Restaurante] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    [nombre] varchar(30)  NULL,
+    [rating] real  NULL,
+	descripcion varchar(200) null,
+    id_ImagenLogo int not null,
+	id_imgLayer int not null
+);
+GO
 CREATE TABLE [DireccionRestaurante] (
     [idDireccionRestaurante] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
     [lon] int  NULL,
     [lat] int  NULL,
-    [idRestaurante] int  NULL,
+    [id_Restaurante] int  NULL,
     [descripcion] varchar(100)  NULL
+);
+GO
+
+CREATE TABLE Empleado(
+	id_empleado int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	nombre varchar(50) not null,
+	apellido varchar(50) not null,
+	direccion varchar(150) null,
+	numTelefono varchar(20) null,
+	correo varchar(70) NOT NULL,
+	username varchar(30) UNIQUE NOT NULL,
+	[id_Restaurante] int not null
 );
 GO
 -- Creating table 'pedidos'
@@ -41,6 +76,8 @@ CREATE TABLE [CategoriasProductos] (
     [id_CategoriasProductos] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
     [categoria_nombre] VARCHAR(50) NOT NULL,
 	[id_Restaurante] int NOT NULL,
+	isActive bit not null
+	
 );
 GO
 -- Creating table 'platillos'
@@ -56,55 +93,59 @@ CREATE TABLE [platillos] (
 	isActive bit not null
 	
 );
-GO voy aqui!!!
+GO 
 CREATE TABLE PlatilloSize(
 	id_platillo_size int PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	sizeDesc varchar(30) not null,
-	Descripcion varchar(50) null,
+	sizeDesc varchar(20) not null,
+	DescripcionExtra varchar(50) null,
 	precio real not null,
 	id_Platillo int not null
 );
 GO
+
 -- Creating table 'platillosPedidos'
 CREATE TABLE [platillosPedidos] (
-    [idPlatPed] int IDENTITY(1,1) NOT NULL,
-    [idPed] int  NULL,
-    [idPlat] int  NULL,
+    [id_platillosPedidos] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    [idPedido] int  NULL,
+    [id_Platillo] int  NULL,
     [cant] int  NULL,
-    [subtotal] real  NULL
+    [precio] real  NULL,
+	sizeDescripcion varchar(70) null
 );
 GO
 
 -- Creating table 'repartidor'
 CREATE TABLE [repartidor] (
-    [idRepartidor] int IDENTITY(1,1) NOT NULL,
-    [username] varchar(30)  NULL,
+    [idRepartidor] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+    direccion varchar(150) null,
+	[DUI] varchar(20) UNIQUE NOT NULL,
+	[NIT] varchar(20) UNIQUE NOT NULL,
+	correo varchar(70) UNIQUE NOT NULL,
+	ultimaFechaCobro datetime null,
     [nombre] varchar(30)  NULL,
     [apellido] varchar(30)  NULL,
     [pass] varchar(30)  NULL,
+	[username] varchar(30) UNIQUE NOT NULL,
     [numTelefono] varchar(20)  NULL,
-    [salarioAcumulado] real  NULL
+	puntajeCalidad real null,
+	
+);
+GO
+CREATE TABLE [RetirosRepartidor] (
+    [idRetirosRepartidor] int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	fechaCobro datetime not null,
+	cantidadCobrada real not null,
+	idRepartidor int not null
+);
+GO
+CREATE TABLE Imagenes (
+    id_imagen int PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	imagenName varchar(100) UNIQUE not null,
+	
 );
 GO
 
--- Creating table 'restaurante'
-CREATE TABLE [restaurante] (
-    [idRes] int IDENTITY(1,1) NOT NULL,
-    [nombre] varchar(30)  NULL,
-    [rating] real  NULL,
-    [imgLogo] varchar(150)  NULL,
-    [xlat] real  NULL,
-    [ylon] real  NULL,
-    [descp] varchar(200)  NULL,
-    [horaS] varchar(15)  NULL,
-    [horaE] varchar(15)  NULL,
-    [imgLaye] varchar(150)  NULL,
-    [pass] varchar(30)  NULL,
-    [PersonaEncargada] varchar(40)  NULL,
-    [NumTelefono] varchar(20)  NULL
-);
-GO
-
+/**
 -- Creating table 'sucursales'
 CREATE TABLE [sucursales] (
     [idSucursal] int IDENTITY(1,1) NOT NULL,
@@ -119,17 +160,8 @@ CREATE TABLE [sucursales] (
     [password] varchar(20)  NULL
 );
 GO
+**/
 
--- Creating table 'usuario'
-CREATE TABLE [usuario] (
-    [idUser] int IDENTITY(1,1) NOT NULL,
-    [C_User] varchar(20)  NULL,
-    [nombre] varchar(30)  NULL,
-    [lastname] varchar(30)  NULL,
-    [pass] varchar(30)  NULL,
-    [NumTelefono] varchar(20)  NULL
-);
-GO
 
 
 

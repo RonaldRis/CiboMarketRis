@@ -47,6 +47,13 @@
           <Property Name="username" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="id_Restaurante" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="id_imagen" />
+          </Key>
+          <Property Name="id_imagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imagenName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="pedidos">
           <Key>
             <PropertyRef Name="idPedido" />
@@ -244,6 +251,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_platillos_Imagenes">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="platillos" Type="Self.platillos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id_imagen" />
+            </Principal>
+            <Dependent Role="platillos">
+              <PropertyRef Name="idImagen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PlatilloSize_platillos">
           <End Role="platillos" Type="Self.platillos" Multiplicity="1" />
           <End Role="PlatilloSize" Type="Self.PlatilloSize" Multiplicity="*" />
@@ -280,6 +299,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_restaurante_Imagenes">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="restaurante" Type="Self.restaurante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id_imagen" />
+            </Principal>
+            <Dependent Role="restaurante">
+              <PropertyRef Name="id_ImagenLogo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_restaurante_Imagenes1">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="restaurante" Type="Self.restaurante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id_imagen" />
+            </Principal>
+            <Dependent Role="restaurante">
+              <PropertyRef Name="id_imgLayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RetirosRepartidor_repartidor">
           <End Role="repartidor" Type="Self.repartidor" Multiplicity="1" />
           <End Role="RetirosRepartidor" Type="Self.RetirosRepartidor" Multiplicity="*" />
@@ -297,6 +340,7 @@
           <EntitySet Name="DireccionCliente" EntityType="Self.DireccionCliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DireccionRestaurante" EntityType="Self.DireccionRestaurante" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="pedidos" EntityType="Self.pedidos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="platillos" EntityType="Self.platillos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlatilloSize" EntityType="Self.PlatilloSize" Schema="dbo" store:Type="Tables" />
@@ -337,6 +381,10 @@
             <End Role="CategoriasProductos" EntitySet="CategoriasProductos" />
             <End Role="platillos" EntitySet="platillos" />
           </AssociationSet>
+          <AssociationSet Name="FK_platillos_Imagenes" Association="Self.FK_platillos_Imagenes">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="platillos" EntitySet="platillos" />
+          </AssociationSet>
           <AssociationSet Name="FK_PlatilloSize_platillos" Association="Self.FK_PlatilloSize_platillos">
             <End Role="platillos" EntitySet="platillos" />
             <End Role="PlatilloSize" EntitySet="PlatilloSize" />
@@ -348,6 +396,14 @@
           <AssociationSet Name="FK_platillosPedidos_platillos" Association="Self.FK_platillosPedidos_platillos">
             <End Role="platillos" EntitySet="platillos" />
             <End Role="platillosPedidos" EntitySet="platillosPedidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_restaurante_Imagenes" Association="Self.FK_restaurante_Imagenes">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="restaurante" EntitySet="restaurante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_restaurante_Imagenes1" Association="Self.FK_restaurante_Imagenes1">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="restaurante" EntitySet="restaurante" />
           </AssociationSet>
           <AssociationSet Name="FK_RetirosRepartidor_repartidor" Association="Self.FK_RetirosRepartidor_repartidor">
             <End Role="repartidor" EntitySet="repartidor" />
@@ -408,6 +464,16 @@
           <Property Name="id_Restaurante" Type="Int32" Nullable="false" />
           <NavigationProperty Name="restaurante" Relationship="Self.FK_Empleado_restaurante" FromRole="Empleado" ToRole="restaurante" />
         </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="id_imagen" />
+          </Key>
+          <Property Name="id_imagen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imagenName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="platillos" Relationship="Self.FK_platillos_Imagenes" FromRole="Imagenes" ToRole="platillos" />
+          <NavigationProperty Name="restaurante" Relationship="Self.FK_restaurante_Imagenes" FromRole="Imagenes" ToRole="restaurante" />
+          <NavigationProperty Name="restaurante1" Relationship="Self.FK_restaurante_Imagenes1" FromRole="Imagenes" ToRole="restaurante" />
+        </EntityType>
         <EntityType Name="pedidos">
           <Key>
             <PropertyRef Name="idPedido" />
@@ -443,6 +509,7 @@
           <Property Name="hasSize" Type="Boolean" Nullable="false" />
           <Property Name="isActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CategoriasProductos" Relationship="Self.FK_platillos_CategoriasProductos" FromRole="platillos" ToRole="CategoriasProductos" />
+          <NavigationProperty Name="Imagenes" Relationship="Self.FK_platillos_Imagenes" FromRole="platillos" ToRole="Imagenes" />
           <NavigationProperty Name="PlatilloSize" Relationship="Self.FK_PlatilloSize_platillos" FromRole="platillos" ToRole="PlatilloSize" />
           <NavigationProperty Name="platillosPedidos" Relationship="Self.FK_platillosPedidos_platillos" FromRole="platillos" ToRole="platillosPedidos" />
         </EntityType>
@@ -502,6 +569,8 @@
           <NavigationProperty Name="CategoriasProductos" Relationship="Self.FK_CategoriasProductos_restaurante" FromRole="restaurante" ToRole="CategoriasProductos" />
           <NavigationProperty Name="DireccionRestaurante" Relationship="Self.FK_DireccionRestaurante_restaurante" FromRole="restaurante" ToRole="DireccionRestaurante" />
           <NavigationProperty Name="Empleado" Relationship="Self.FK_Empleado_restaurante" FromRole="restaurante" ToRole="Empleado" />
+          <NavigationProperty Name="Imagenes" Relationship="Self.FK_restaurante_Imagenes" FromRole="restaurante" ToRole="Imagenes" />
+          <NavigationProperty Name="Imagenes1" Relationship="Self.FK_restaurante_Imagenes1" FromRole="restaurante" ToRole="Imagenes" />
         </EntityType>
         <EntityType Name="RetirosRepartidor">
           <Key>
@@ -610,6 +679,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_platillos_Imagenes">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="platillos" Type="Self.platillos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id_imagen" />
+            </Principal>
+            <Dependent Role="platillos">
+              <PropertyRef Name="idImagen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_restaurante_Imagenes">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="restaurante" Type="Self.restaurante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id_imagen" />
+            </Principal>
+            <Dependent Role="restaurante">
+              <PropertyRef Name="id_ImagenLogo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_restaurante_Imagenes1">
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="1" />
+          <End Role="restaurante" Type="Self.restaurante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Imagenes">
+              <PropertyRef Name="id_imagen" />
+            </Principal>
+            <Dependent Role="restaurante">
+              <PropertyRef Name="id_imgLayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_pedidos_repartidor">
           <End Role="repartidor" Type="Self.repartidor" Multiplicity="1" />
           <End Role="pedidos" Type="Self.pedidos" Multiplicity="*" />
@@ -675,6 +780,7 @@
           <EntitySet Name="DireccionCliente" EntityType="Self.DireccionCliente" />
           <EntitySet Name="DireccionRestaurante" EntityType="Self.DireccionRestaurante" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" />
           <EntitySet Name="pedidos" EntityType="Self.pedidos" />
           <EntitySet Name="platillos" EntityType="Self.platillos" />
           <EntitySet Name="PlatilloSize" EntityType="Self.PlatilloSize" />
@@ -710,6 +816,18 @@
           <AssociationSet Name="FK_Empleado_restaurante" Association="Self.FK_Empleado_restaurante">
             <End Role="restaurante" EntitySet="restaurante" />
             <End Role="Empleado" EntitySet="Empleado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_platillos_Imagenes" Association="Self.FK_platillos_Imagenes">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="platillos" EntitySet="platillos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_restaurante_Imagenes" Association="Self.FK_restaurante_Imagenes">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="restaurante" EntitySet="restaurante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_restaurante_Imagenes1" Association="Self.FK_restaurante_Imagenes1">
+            <End Role="Imagenes" EntitySet="Imagenes" />
+            <End Role="restaurante" EntitySet="restaurante" />
           </AssociationSet>
           <AssociationSet Name="FK_pedidos_repartidor" Association="Self.FK_pedidos_repartidor">
             <End Role="repartidor" EntitySet="repartidor" />
@@ -781,6 +899,14 @@
                 <ScalarProperty Name="correo" ColumnName="correo" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="id_Restaurante" ColumnName="id_Restaurante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Imagenes">
+            <EntityTypeMapping TypeName="CiboMarketDBModel.Imagenes">
+              <MappingFragment StoreEntitySet="Imagenes">
+                <ScalarProperty Name="id_imagen" ColumnName="id_imagen" />
+                <ScalarProperty Name="imagenName" ColumnName="imagenName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
